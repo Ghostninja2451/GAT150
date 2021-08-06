@@ -1,0 +1,34 @@
+#pragma once
+#include"Framework/System.h"
+#include<SDL.h>
+#include<vector>
+namespace henry
+{
+	class InputSystem : public System
+	{
+	public :
+		enum class eKeyState
+		{
+			Idle,
+			Pressed,
+			Held,
+			Release
+		};
+	public:
+		void Startup() override;
+		void Shutdown() override;
+		void Update(float dt) override;
+
+		eKeyState GetKeyState(int id);
+		bool IsKeyDown(int id);
+		bool IsPreviousKeyDown(int id);
+
+
+		//const Uint8* SDL_GetKeyboardState(int* numkeys);
+	private:
+		std::vector<Uint8> keyboardState; 
+		std::vector<Uint8> prevKeyboardState; 
+		int numKeys;
+	};
+
+}

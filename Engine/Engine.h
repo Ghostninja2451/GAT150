@@ -16,6 +16,13 @@
 #include"Object/Actor.h"
 #include"Object/Scene.h"
 
+//inputsystem
+#include"Input/InputSystem.h"
+
+//Graphic
+#include"Graphics/Renderer.h"
+#include"Graphics/Texture.h"
+
 //framework
 #include"FrameWork/EventSystem.h"
 
