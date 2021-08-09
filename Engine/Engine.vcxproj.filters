@@ -71,6 +71,9 @@
     <ClCompile Include="Input\InputSystem.cpp">
       <Filter>Sources\Input</Filter>
     </ClCompile>
+    <ClCompile Include="Core\Timer.cpp">
+      <Filter>Sources\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Math\Matrix22.h">
@@ -129,6 +132,9 @@
     </ClInclude>
     <ClInclude Include="Input\InputSystem.h">
       <Filter>Sources\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Timer.h">
+      <Filter>Sources\Core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

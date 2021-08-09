@@ -5,11 +5,13 @@
 
 int main(int, char**)
 {
+
 	henry::Engine engine;
 	engine.Startup();
 
 	henry::Scene scene;
 	scene.engine = &engine;
+
 
 	engine.Get<henry::Renderer>()->Create("GAT150", 800, 600);
 	std::cout << henry::GetFilePath() << std::endl;
@@ -29,6 +31,8 @@ int main(int, char**)
 
 	bool quit = false;
 	SDL_Event event;
+	float quitTime = engine.time.time + 3.0f;
+
 	while (!quit)
 	{
 		SDL_PollEvent(&event);
@@ -39,13 +43,17 @@ int main(int, char**)
 			break;
 		}
 
-		engine.Update(0);
+		//update
+		engine.Update();
 		quit = (engine.Get<henry::InputSystem>()->GetKeyState(SDL_SCANCODE_ESCAPE) == henry::InputSystem::eKeyState::Pressed);
-		scene.Update(0);
+		scene.Update(engine.time.deltaTime);
 
+		if (engine.time.time >= quitTime) quit = true;
+		engine.time.timeScale = 2;
+
+		//draw
 		engine.Get<henry::Renderer>()->BeginFrame();
 		scene.Draw(engine.Get<henry::Renderer>());
-
 		engine.Get<henry::Renderer>()->EndFrame();
 
 	}

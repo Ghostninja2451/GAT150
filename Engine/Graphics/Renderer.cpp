@@ -31,7 +31,7 @@ void henry::Renderer::Create(const std::string& name, int width, int height)
 		SDL_Quit();
 	}
 
-	renderer = SDL_CreateRenderer(window, -1, 0);
+	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_ACCELERATED);
 }
 
 void henry::Renderer::BeginFrame()
