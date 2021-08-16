@@ -1,4 +1,6 @@
 #include"Renderer.h"
+#include"Math/MathUtils.h"
+#include<SDL_ttf.h>
 #include<SDL_image.h>
 #include<iostream>
 void henry::Renderer::Startup()
@@ -8,11 +10,13 @@ void henry::Renderer::Startup()
 		std::cout << "SDL_Init Error: " << SDL_GetError() << std::endl;
 	}
 	IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
+	TTF_Init();
 }
 
 void henry::Renderer::Shutdown()
 {
 	IMG_Quit();
+	TTF_Quit();
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 }
@@ -48,10 +52,17 @@ void henry::Renderer::EndFrame()
 void henry::Renderer::Draw(std::shared_ptr<henry::Texture> texture, const Vector2& position, float angle, const Vector2& scale)
 {
 	Vector2 size = texture->GetSize();
-	SDL_Rect dest{ (int)position.x, (int)position.y, static_cast<int> (size.x), static_cast<int>(size.y) };
-	
+	size = size * scale;
+	Vector2 newPosition = position - (size * 0.5f);
 
-	SDL_RenderCopyEx(renderer, texture->texture, nullptr, &dest, angle, nullptr, SDL_FLIP_NONE);
+	SDL_Rect rect;
+
+	rect.x = static_cast<int>(newPosition.x);
+	rect.y = static_cast<int>(newPosition.y);
+	rect.w = static_cast<int>(size.x);
+	rect.h = static_cast<int>(size.y);
+
+	SDL_RenderCopyEx(renderer, texture->texture, nullptr, &rect, henry::RadToDeg(angle), nullptr, SDL_FLIP_NONE);
 
 }
 
@@ -60,10 +71,17 @@ void henry::Renderer::Draw(std::shared_ptr<henry::Texture> texture, const Transf
 	Vector2 size = texture->GetSize();
 	size = size * transform.scale;
 
-	SDL_Rect dest{ static_cast<int>(transform.position.x), static_cast<int> (transform.position.y), static_cast<int> (size.x), static_cast<int>(size.y) };
+	Vector2 newPosition = transform.position - (size * 0.5f);
 
+	SDL_Rect dest;
+	dest.x = static_cast<int>(newPosition.x);
+	dest.y = static_cast<int>(newPosition.y);
+	dest.w = static_cast<int>(size.x);
+	dest.h = static_cast<int>(size.y);
 
-	SDL_RenderCopyEx(renderer, texture->texture, nullptr, &dest, transform.rotation, nullptr, SDL_FLIP_NONE);
+	SDL_RenderCopyEx(renderer, texture->texture, nullptr, &dest,henry::RadToDeg(transform.rotation), nullptr, SDL_FLIP_NONE);
 
 }
+
+
 

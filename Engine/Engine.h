@@ -3,6 +3,7 @@
 //#include"AudioSystem/AudioSystem.h"
 
 //core
+#include"Core/Utilities.h"
 #include"Core/FileSystem.h"
 #include "Core/Timer.h"
 
@@ -24,6 +25,11 @@
 //Graphic
 #include"Graphics/Renderer.h"
 #include"Graphics/Texture.h"
+#include"Graphics/ParticleSystem.h"
+#include"Graphics/Font.h"
+
+//Audio
+#include"Audio/AudioSystem.h"
 
 //framework
 #include"FrameWork/EventSystem.h"
@@ -47,7 +53,7 @@ namespace henry
 		void Shutdown();
 
 		void Update();
-		void Draw();
+		void Draw(Renderer* renderer);
 
 		template<typename T>
 		T* Get();

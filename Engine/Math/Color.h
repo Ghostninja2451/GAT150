@@ -1,5 +1,6 @@
 #pragma once
 #include "Vector2.h"
+#include<SDL.h>
 #include<string>
 namespace henry
 {
@@ -21,7 +22,15 @@ namespace henry
 
 		Color operator * (float s) const { return { r * s , g * s , b * s }; }
 		operator std::uint32_t() const { return toRGB(); }
-
+		operator SDL_Color() const
+		{
+			SDL_Color color;
+			color.r = static_cast<Uint8>(r * 255);
+			color.g = static_cast<Uint8>(g * 255);
+			color.b = static_cast<Uint8>(b * 255);
+			color.a = 255;
+			return color;
+		}
 		std::uint32_t toRGB() const
 		{
 			std::uint8_t red = static_cast<std::uint8_t>( r * 255);
@@ -31,6 +40,7 @@ namespace henry
 
 			return (red | green << 8 | blue << 16);
 		}
+
 
 		friend std::istream& operator >> (std::istream& stream, Color& c);
 

@@ -6,7 +6,7 @@ namespace henry
 {
 	void Actor::Update(float dt)
 	{
-		transform.rotation += 180.0f * dt;
+		//transform.rotation += 180.0f * dt;
 		//transform.position.x += 100.0f * dt;
 
 		transform.Update();
@@ -15,13 +15,14 @@ namespace henry
 
 	void Actor::Draw(Renderer* renderer)
 	{
-		renderer->Draw(texture, transform);
+		if(texture) renderer->Draw(texture, transform);
+		std::for_each(children.begin(), children.end(), [renderer](auto& child) { child->Draw(renderer); });
 	}
 
 	float Actor::GetRadius()
 	{
 		//return std::max(texture->GetSize().x , texture->GetSize().y) * 0.5f;
-		return (texture) ? texture->GetSize().Length() * 0.5f : 0;
+		return (texture) ? texture->GetSize().Length() * 0.5f * transform.scale.x : 0;
 	}
 
 	void Actor::AddChild(std::unique_ptr<Actor> actor)
