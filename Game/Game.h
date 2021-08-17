@@ -47,5 +47,6 @@ private:
 	henry::AudioChannel musicChannel;
 	std::shared_ptr<henry::Texture> particleTexture;
 	std::shared_ptr<henry::Texture> textTexture;
+	std::shared_ptr<henry::Texture> backgroundTexture;
 
 };

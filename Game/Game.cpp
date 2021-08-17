@@ -26,9 +26,10 @@ void Game::Initialize()
 	std::cout << henry::GetFilePath() << std::endl;
 
 	//std::shared_ptr<henry::Texture> texture = engine->Get<henry::ResourceSystem>()->Get<henry::Texture>("sf2.png", engine.Get<henry::Renderer>());
-	/*std::shared_ptr<henry::Texture> texture = engine->Get<henry::ResourceSystem>()->Get<henry::Texture>("HenryStickmen.png", engine->Get<henry::Renderer>());
-	std::shared_ptr<henry::Texture> player = engine->Get<henry::ResourceSystem>()->Get<henry::Texture>("Images/Player.png", engine->Get<henry::Renderer>());*/
+	//std::shared_ptr<henry::Texture> texture = engine->Get<henry::ResourceSystem>()->Get<henry::Texture>("HenryStickmen.png", engine->Get<henry::Renderer>());
+	//std::shared_ptr<henry::Texture> player = engine->Get<henry::ResourceSystem>()->Get<henry::Texture>("Images/Player.png", engine->Get<henry::Renderer>());
 	//particleTexture = engine->Get<henry::ResourceSystem>()->Get<henry::Texture>("Explosion.png", engine->Get<henry::Renderer>());
+	backgroundTexture = engine->Get<henry::ResourceSystem>()->Get<henry::Texture>("Images/Background.jpg", engine->Get<henry::Renderer>());
 
 	//font
 
@@ -139,6 +140,8 @@ void Game::Draw()
 	textTexture = std::make_shared<henry::Texture>(engine->Get<henry::Renderer>());
 	engine->Get<henry::Renderer>()->BeginFrame();
 
+	henry::Transform transform{ henry::Vector2{433,400}, 0, 0.7f };
+	engine->Get<henry::Renderer>()->Draw(backgroundTexture, transform);
 	henry::Transform t;
 	switch (state)
 	{
