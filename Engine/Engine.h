@@ -18,6 +18,9 @@
 
 #include"Object/Actor.h"
 #include"Object/Scene.h"
+//component
+#include"Component/SpriteComponent.h"
+#include"Component/PhysicsComponent.h"
 
 //inputsystem
 #include"Input/InputSystem.h"
