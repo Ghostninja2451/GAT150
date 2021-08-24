@@ -1,5 +1,6 @@
 #include "Game.h"
 
+
 void Game::Initialize()
 {
 	// create engine
@@ -17,17 +18,25 @@ void Game::Initialize()
 
 	std::unique_ptr<henry::Actor> actor = std::make_unique<henry::Actor>(henry::Transform{ {400 , 300},0 , 1 });
 	{
-		std::unique_ptr<henry::SpriteComponent> component = std::make_unique<henry::SpriteComponent>();
-		component->texture = engine->Get<henry::ResourceSystem>()->Get<henry::Texture>("HenryStickmen.png", engine->Get<henry::Renderer>());
-		actor->AddComponent(std::move(component));
-	}
-	{
-		std::unique_ptr<henry::PhysicsComponent> component = std::make_unique<henry::PhysicsComponent>();
-		component->ApplyForce(henry::Vector2::right * 200);
-		actor->AddComponent(std::move(component));
-	}
+		auto component = henry::ObjectFactory::Instance().Create<henry::SpriteAnimationComponent>("SpriteAnimationComponent");
 
-		scene->AddActor(std::move(actor));
+		component->texture = engine->Get<henry::ResourceSystem>()->Get<henry::Texture>("Images/Wisp.png", engine->Get<henry::Renderer>());
+		//henry::SpriteAnimationComponent* component = actor->AddComponent<henry::SpriteAnimationComponent>();
+		component->fps = 12; //<number of frames to display per second(animation is typically 12 - 30)>;
+		component->numFramesX = 8; //<number of images horizontally>;
+		component->numFramesY = 8; //<number of images vertically>;
+		actor->AddComponent(std::move(component));
+	}
+	//{
+	//	henry::SpriteComponent* component = actor->AddComponent<henry::SpriteComponent>();
+	//	component->texture = engine->Get<henry::ResourceSystem>()->Get<henry::Texture>("Images/Link.png", engine->Get<henry::Renderer>());
+	//}
+	//{
+	//	henry::PhysicsComponent* component = actor->AddComponent<henry::PhysicsComponent>();
+	//	//component->ApplyForce(henry::Vector2::right * 200);
+	//}
+
+	scene->AddActor(std::move(actor));
 	}
 
 void Game::Shutdown()

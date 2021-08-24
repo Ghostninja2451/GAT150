@@ -26,7 +26,9 @@ namespace henry
 
 		float GetRadius();
 
-		void AddComponent(std::unique_ptr<Component>component);
+		void AddComponent(std::unique_ptr<Component> component);
+		template<class T>
+		T* AddComponent();
 
 	public:
 		bool destroy{ false };
@@ -40,4 +42,13 @@ namespace henry
 
 		std::vector<std::unique_ptr<Component>> components;
 	};
+	template<class T>
+	inline T* Actor::AddComponent()
+	{
+		std::unique_ptr<T> component = std::make_unique<T>();
+		component->owner = this;
+		components.push_back(std::move(component));
+
+		return dynamic_cast<T*>(components.back().get());
+	}
 }

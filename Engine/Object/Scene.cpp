@@ -72,4 +72,14 @@ namespace henry
 		actors.clear();
 	}
 
+	bool Scene::Write(const rapidjson::Value& value) const
+	{
+		return false;
+	}
+
+	bool Scene::Read(const rapidjson::Value& value)
+	{
+		return true;
+	}
+
 }
