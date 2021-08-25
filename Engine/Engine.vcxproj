@@ -238,6 +238,9 @@
     <ClInclude Include="Resource\Resource.h" />
     <ClInclude Include="Resource\ResourceSystem.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\Build\Resources\scene.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

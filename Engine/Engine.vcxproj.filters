@@ -209,4 +209,9 @@
       <Filter>Sources\Core</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\Build\Resources\scene.txt">
+      <Filter>Resources</Filter>
+    </Text>
+  </ItemGroup>
 </Project>

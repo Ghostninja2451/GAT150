@@ -2,6 +2,7 @@
 #include"Object.h"
 #include"Component/Component.h"
 #include"Math/Transform.h"
+#include"Core/Serializable.h"
 #include<vector>
 #include<memory>
 
@@ -10,7 +11,7 @@ namespace henry
 	class Scene;
 	class Renderer;
 
-	class Actor : public Object
+	class Actor : public Object, public ISerializable
 	{
 	public:
 		Actor() {}
@@ -30,6 +31,9 @@ namespace henry
 		template<class T>
 		T* AddComponent();
 
+		virtual bool Write(const rapidjson::Value& value) const override;
+		virtual bool Read(const rapidjson::Value& value) override;
+
 	public:
 		bool destroy{ false };
 		std::string tag;
@@ -41,6 +45,7 @@ namespace henry
 		std::vector < std::unique_ptr<Actor>> children;
 
 		std::vector<std::unique_ptr<Component>> components;
+
 	};
 	template<class T>
 	inline T* Actor::AddComponent()
