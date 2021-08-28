@@ -22,20 +22,24 @@ namespace henry
 		virtual void Update(float dt);
 		virtual void Draw(Renderer* renderer);
 
-		virtual void OnCollision(Actor* actor) { }
-		void AddChild(std::unique_ptr<Actor> actor);
+		void BeginContact(Actor* other);
+		void EndContact(Actor* other);
 
-		float GetRadius();
+		void AddChild(std::unique_ptr<Actor> actor);
 
 		void AddComponent(std::unique_ptr<Component> component);
 		template<class T>
 		T* AddComponent();
+
+		template<class T>
+		T* GetComponent();
 
 		virtual bool Write(const rapidjson::Value& value) const override;
 		virtual bool Read(const rapidjson::Value& value) override;
 
 	public:
 		bool destroy{ false };
+		std::string name;
 		std::string tag;
 
 		Transform transform;
@@ -55,5 +59,18 @@ namespace henry
 		components.push_back(std::move(component));
 
 		return dynamic_cast<T*>(components.back().get());
+	}
+	template<class T>
+	inline T* Actor::GetComponent()
+	{
+		for (auto& component : components)
+		{
+			if (dynamic_cast <T*> (component.get()))
+			{
+				return dynamic_cast <T*> (component.get());
+			}
+		}
+
+		return nullptr;
 	}
 }

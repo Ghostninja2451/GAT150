@@ -11,7 +11,7 @@ namespace henry
 		{
 			frameTimer = 0;
 			frame++;
-			if (frame >= numFramesX * numFramesY) frame = 0;
+			if (frame > endFrame) frame = startFrame;
 		}
 			Vector2 size = texture.get()->GetSize();
 			Vector2 frameCount{ numFramesX, numFramesY };
@@ -28,6 +28,22 @@ namespace henry
 	{
 		renderer->Draw(texture, rect, owner->transform);
 	}
+	void SpriteAnimationComponent::StartSequence(const std::string& name)
+	{
+		if (sequenceName == name) return;
+
+		sequenceName = name;
+		if (sequences.find(name) != sequences.end())
+		{
+			Sequence sequence = sequences[name];
+			
+			startFrame = sequence.startFrame;
+			endFrame = sequence.endFrame;
+			fps = sequence.fps;
+
+			frame = startFrame;
+		}
+	}
 	bool SpriteAnimationComponent::Write(const rapidjson::Value& value) const
 	{
 		return false;
@@ -39,8 +55,31 @@ namespace henry
 		JSON_READ(value, fps);
 		JSON_READ(value, numFramesX);
 		JSON_READ(value, numFramesY);
-		
+		JSON_READ(value, startFrame);
+		JSON_READ(value, endFrame);
 
+		if (startFrame == 0 && endFrame == 0) endFrame = (numFramesX * numFramesY) - 1;
+		frame = startFrame;
+
+		if (value.HasMember("sequences") && value["sequences"].IsArray())
+		{
+			for (auto& sequencesValue : value["sequences"].GetArray())
+			{
+				std::string name;
+				JSON_READ(sequencesValue, name);
+
+				Sequence sequence;
+				JSON_READ(sequencesValue, sequence.fps);
+				JSON_READ(sequencesValue, sequence.startFrame);
+				JSON_READ(sequencesValue, sequence.endFrame);
+
+				sequences[name] = sequence;
+			}
+
+			std::string defaultSequence;
+			JSON_READ(value, defaultSequence);
+			StartSequence(defaultSequence);
+		}
 
 		return true;
 	}

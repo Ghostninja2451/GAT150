@@ -2,24 +2,153 @@
    "actors":[
       {
          "type":"Actor",
+         "name":"Henry",
          "tag":"Player",
          "transform":{
             "position":[
                400,
                300
             ],
+            "scale":[2,2],
             "rotation":0
          },
          "components":[
             {
-               "type":"SpriteAnimationComponent",
-               "textureName":"Images/Wisp.png",
-               "fps":16,
-               "numFramesX":8,
-               "numFramesY":8
+	          "type":"AudioComponent",
+	           "soundName":"Audio/grunt.wav",
+	           "playOnAwake":true
             },
             {
-               "type":"PhysicsComponent"
+               "type":"PlayerComponent",
+               "speed":25
+            },
+            {
+               "type":"SpriteAnimationComponent",
+               "textureName":"Images/Character.png",
+               "fps":10,
+               "numFramesX":18,
+               "numFramesY":11,
+               "startFrame":90,
+               "endFrame":95,
+               "sequences": [
+                    {
+                        "name" : "idle",
+                        "sequence.fps" :5,
+                        "sequence.startFrame": 0,
+                        "sequence.endFrame": 1
+                    },
+                    {
+                        "name" : "walk_right",
+                        "sequence.fps" :10,
+                        "sequence.startFrame": 90,
+                        "sequence.endFrame": 95
+                    },                    {
+                        "name" : "walk_left",
+                        "sequence.fps" :10,
+                        "sequence.startFrame": 162,
+                        "sequence.endFrame": 167
+                    }
+               ],
+               "defaultSequence": "idle"
+            },
+            {
+               "type":"RBPhysicsComponent",
+               "data.isDynamic":true,
+               "data.density":1,
+               "data.lockAngle":true,
+               "data.restitution": 0.5,
+               "data.gravityScale": 2,
+               "data.size":[
+                  32,
+                  32
+               ]
+            }
+         ]
+      },
+      {
+			"type":"Actor",
+			"name":"Score",
+			"transform":{
+				"position":[
+					60,
+					20
+				]
+			},
+			"components":[
+				{
+					"type":"TextComponent",
+					"fontName":"Fonts/ITCBLKAD.TTF",
+					"fontSize":16,
+					"color":[
+						1,
+						1,
+						1
+					],
+					"text":"Hello World!"
+				}
+			]
+		},
+
+       {
+         "type":"Actor",
+         "tag":"Enemy",
+         "transform":{
+            "position":[
+               600,
+               200
+            ],
+            "rotation":0
+         },
+         "components":[
+            {
+               "type":"EnemyComponent",
+               "speed":5
+            },
+            {
+               "type":"SpriteAnimationComponent",
+               "textureName":"Images/Bat.png",
+               "fps":10,
+               "numFramesX":4,
+               "numFramesY":1
+            },
+            {
+               "type":"RBPhysicsComponent",
+               "data.isDynamic":true,
+               "data.isSensor": true,
+               "data.density":1,
+               "data.lockAngle":true,
+               "data.restitution": 0.1,
+               "data.gravityScale": 0,
+               "data.size":[
+                  32,
+                  32
+               ]
+            }
+         ]
+      },
+      {
+         "type":"Actor",
+         "tag":"Ground",
+         "transform":{
+            "position":[
+               400,
+               550
+            ],
+            "rotation":0.0
+         },
+         "components":[
+            {
+               "type":"SpriteComponent",
+               "textureName":"Images/Ground.png"
+            },
+            {
+               "type":"RBPhysicsComponent",
+               "data.isDynamic":false,
+               "data.density":1,
+               "data.size":[
+                  800,
+                  20
+               ]
             }
          ]
       }

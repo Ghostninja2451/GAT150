@@ -1,6 +1,6 @@
 #pragma once
 
-#define REGISTER_CLASS(class) ObjectFactory::Instance().Register<class>(#class);
+#define REGISTER_CLASS(class) henry::ObjectFactory::Instance().Register<class>(#class);
 
 
 //core
@@ -23,7 +23,6 @@
 #include"Math/Transform.h"
 
 //#include"Graphics/Shape.h"
-
 #include"Object/Actor.h"
 #include"Object/Scene.h"
 
@@ -31,6 +30,9 @@
 #include"Component/SpriteComponent.h"
 #include"Component/PhysicsComponent.h"
 #include"Component/SpriteAnimationComponent.h"
+#include"Component/RBPhysicsComponent.h"
+#include"Component/AudioComponent.h"
+#include"Component/TextComponent.h"
 
 //inputsystem
 #include"Input/InputSystem.h"
@@ -40,6 +42,9 @@
 #include"Graphics/Texture.h"
 #include"Graphics/ParticleSystem.h"
 #include"Graphics/Font.h"
+
+//physics system
+#include"Physics/PhysicsSystem.h"
 
 //Audio
 #include"Audio/AudioSystem.h"

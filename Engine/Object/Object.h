@@ -6,5 +6,7 @@ namespace henry
 	{
 	public:
 		virtual ~Object() {}
+
+		virtual void Create() {}
 	};
 }

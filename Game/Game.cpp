@@ -1,5 +1,6 @@
 #include "Game.h"
-
+#include "GameComponent/PlayerComponent.h"
+#include "GameComponent/EnemyComponent.h"
 
 void Game::Initialize()
 {
@@ -14,6 +15,10 @@ void Game::Initialize()
 	scene->engine = engine.get();
 	henry::SeedRandom(static_cast<unsigned int>(time(nullptr)));
 	henry::SetFilePath("../Resources");
+
+	// register classes
+	REGISTER_CLASS(PlayerComponent);
+	REGISTER_CLASS(EnemyComponent);
 	
 	rapidjson::Document document;
 	bool success = henry::json::Load("scene.txt", document);

@@ -27,11 +27,29 @@ namespace henry
 		std::for_each(children.begin(), children.end(), [renderer](auto& child) { child->Draw(renderer); });
 	}
 
-	float Actor::GetRadius()
+	void Actor::BeginContact(Actor* other)
 	{
-		
-		return 0;
+		Event event;
+
+		event.name = "collision_enter";
+		event.data = other;
+		event.receiver = this;
+
+		scene->engine->Get<EventSystem>()->Notify(event);
+
 	}
+
+	void Actor::EndContact(Actor* other)
+	{
+		Event event;
+
+		event.name = "collision_exit";
+		event.data = other;
+		event.receiver = this;
+
+		scene->engine->Get<EventSystem>()->Notify(event);
+	}
+
 
 	void Actor::AddChild(std::unique_ptr<Actor> actor)
 	{
@@ -50,6 +68,7 @@ namespace henry
 	bool Actor::Read(const rapidjson::Value& value)
 	{
 		JSON_READ(value, tag);
+		JSON_READ(value, name);
 		if (value.HasMember("transform"))
 		{
 			transform.Read(value["transform"]);
@@ -67,6 +86,7 @@ namespace henry
 				{
 					component->owner = this;
 					component->Read(componentValue);
+					component->Create();
 					AddComponent(std::move(component));
 				}
 			}
