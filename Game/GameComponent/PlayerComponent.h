@@ -6,8 +6,12 @@
 class PlayerComponent : public henry::Component
 {
 public:
+	std::unique_ptr<Object> Clone() const { return std::make_unique<PlayerComponent>(*this); }
+
 	void Create() override;
 	virtual void Update() override;
+
+	~PlayerComponent();
 
 	virtual void OnCollisionEnter(const henry::Event& event);
 	virtual void OnCollisionExit(const henry::Event& event);

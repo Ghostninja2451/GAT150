@@ -1,7 +1,7 @@
 #include "Game.h"
 #include "GameComponent/PlayerComponent.h"
 #include "GameComponent/EnemyComponent.h"
-
+#include "GameComponent/PickUpComponent.h"
 void Game::Initialize()
 {
 	// create engine
@@ -19,13 +19,19 @@ void Game::Initialize()
 	// register classes
 	REGISTER_CLASS(PlayerComponent);
 	REGISTER_CLASS(EnemyComponent);
-	
+	REGISTER_CLASS(PickUpComponent);
+
 	rapidjson::Document document;
 	bool success = henry::json::Load("scene.txt", document);
 	assert(success);
 
 	scene->Read(document);
-
+	for (int i = 0; i < 10; i++)
+	{
+		auto actor = henry::ObjectFactory::Instance().Create<henry::Actor>("coins");
+		actor->transform.position = henry::Vector2{ henry::RandomRange(0, 800), henry::RandomRange(100 ,300) };
+		scene->AddActor(std::move(actor));
+	}
 	//std::unique_ptr<henry::Actor> actor = std::make_unique<henry::Actor>(henry::Transform{ {400 , 300},0 , 1 });
 	//{
 	//	auto component = henry::ObjectFactory::Instance().Create<henry::SpriteAnimationComponent>("SpriteAnimationComponent");

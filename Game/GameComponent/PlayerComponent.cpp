@@ -39,6 +39,12 @@ void PlayerComponent::Update()
 	else spriteAnimationComponent->StartSequence("idle");
 }
 
+PlayerComponent::~PlayerComponent()
+{
+	owner->scene->engine->Get<EventSystem>()->Unsubscribe("collision_enter", owner);
+	owner->scene->engine->Get<EventSystem>()->Unsubscribe("collision_exit", owner);
+}
+
 void PlayerComponent::OnCollisionEnter(const Event& event)
 {
 	void* p = std::get<void*>(event.data);

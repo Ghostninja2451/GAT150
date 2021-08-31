@@ -1,5 +1,6 @@
 #include "RBPhysicsComponent.h"
 #include"Engine.h"
+
 namespace henry
 {
 	void RBPhysicsComponent::Update()
@@ -14,6 +15,14 @@ namespace henry
 		owner->transform.position = PhysicsSystem::WorldToScreen(body->GetPosition());
 		owner->transform.rotation = body->GetAngle();
 		velocity = body->GetLinearVelocity();
+	}
+
+	RBPhysicsComponent::~RBPhysicsComponent()
+	{
+		if (body)
+		{
+			owner->scene->engine->Get<PhysicsSystem>()->DestroyBody(body);
+		}
 	}
 	void RBPhysicsComponent::ApplyForce(const Vector2& force)
 	{
