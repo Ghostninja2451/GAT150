@@ -6,9 +6,11 @@ namespace henry
 	class RBPhysicsComponent : public PhysicsComponent
 	{
 	public:
+		RBPhysicsComponent() = default;
+		RBPhysicsComponent(const RBPhysicsComponent& other);
+		~RBPhysicsComponent();
 		std::unique_ptr<Object> Clone() const { return std::make_unique<RBPhysicsComponent>(*this); }
 
-		~RBPhysicsComponent();
 		void Update() override;
 
 

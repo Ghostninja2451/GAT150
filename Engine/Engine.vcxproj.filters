@@ -122,6 +122,9 @@
     <ClCompile Include="Physics\ContactListener.cpp">
       <Filter>Sources\Physics</Filter>
     </ClCompile>
+    <ClCompile Include="Object\TileMap.cpp">
+      <Filter>Sources\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Math\Matrix22.h">
@@ -241,9 +244,21 @@
     <ClInclude Include="Physics\ContactListener.h">
       <Filter>Sources\Physics</Filter>
     </ClInclude>
+    <ClInclude Include="Object\TileMap.h">
+      <Filter>Sources\Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\Build\Resources\scene.txt">
+      <Filter>Resources</Filter>
+    </Text>
+    <Text Include="..\Build\Resources\Map.txt">
+      <Filter>Resources</Filter>
+    </Text>
+    <Text Include="..\Build\Resources\Title.txt">
+      <Filter>Resources</Filter>
+    </Text>
+    <Text Include="..\Build\Resources\GameOver.txt">
       <Filter>Resources</Filter>
     </Text>
   </ItemGroup>

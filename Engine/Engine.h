@@ -25,6 +25,7 @@
 //#include"Graphics/Shape.h"
 #include"Object/Actor.h"
 #include"Object/Scene.h"
+#include"Object/TileMap.h"
 
 //component
 #include"Component/SpriteComponent.h"

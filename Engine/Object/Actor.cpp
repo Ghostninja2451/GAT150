@@ -24,6 +24,8 @@ namespace henry
 
 	void Actor::Update(float dt)
 	{
+		if (!active) return;
+
 		std::for_each(components.begin(), components.end(), [](auto& component) { component->Update(); });
 
 		transform.Update();

@@ -22,7 +22,7 @@ using namespace henry;
 
 	PickUpComponent::~PickUpComponent()
 	{
-
+		owner->scene->engine->Get<EventSystem>()->Unsubscribe("collision_enter", owner);
 	}
 
 	void PickUpComponent::OnCollisionEnter(const henry::Event& event)
@@ -34,6 +34,12 @@ using namespace henry;
 		{
 			owner->scene->engine->Get<AudioSystem>()->PlayAudio("coins");
 			owner->destroy = true;
+
+			Event event;
+			event.name = "add_more";
+			event.data = 10;
+			
+			owner->scene->engine->Get<EventSystem>()->Notify(event);
 		}
 	}
 

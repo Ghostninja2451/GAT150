@@ -4,6 +4,7 @@
          "type":"Actor",
          "name":"Henry",
          "tag":"Player",
+         "prototype": true,
          "transform":{
             "position":[
                400,
@@ -17,40 +18,34 @@
          },
          "components":[
             {
-               "type":"AudioComponent",
-               "soundName":"Audio/grunt.wav",
-               "playOnAwake":true
-            },
-            {
                "type":"PlayerComponent",
-               "speed":25
+               "speed":25,
+               "jump": 450
             },
             {
                "type":"SpriteAnimationComponent",
-               "textureName":"Images/Character.png",
+               "textureName":"Images/Character2.png",
                "fps":10,
-               "numFramesX":18,
-               "numFramesY":11,
-               "startFrame":90,
-               "endFrame":95,
+               "numFramesX":12,
+               "numFramesY":8,
                "sequences":[
                   {
                      "name":"idle",
                      "sequence.fps":5,
-                     "sequence.startFrame":0,
-                     "sequence.endFrame":1
+                     "sequence.startFrame":72,
+                     "sequence.endFrame":74
                   },
                   {
                      "name":"walk_right",
                      "sequence.fps":10,
-                     "sequence.startFrame":90,
-                     "sequence.endFrame":95
+                     "sequence.startFrame":24,
+                     "sequence.endFrame":26
                   },
                   {
                      "name":"walk_left",
                      "sequence.fps":10,
-                     "sequence.startFrame":162,
-                     "sequence.endFrame":167
+                     "sequence.startFrame":12,
+                     "sequence.endFrame":14
                   }
                ],
                "defaultSequence":"idle"
@@ -60,41 +55,20 @@
                "data.isDynamic":true,
                "data.density":1,
                "data.lockAngle":true,
-               "data.restitution":0.5,
-               "data.gravityScale":2,
+               "data.restitution":0.1,
+               "data.gravityScale":1,
                "data.size":[
                   32,
-                  32
+                  60
                ]
             }
          ]
       },
       {
          "type":"Actor",
-         "name":"Score",
-         "transform":{
-            "position":[
-               60,
-               20
-            ]
-         },
-         "components":[
-            {
-               "type":"TextComponent",
-               "fontName":"Fonts/ITCBLKAD.TTF",
-               "fontSize":16,
-               "color":[
-                  1,
-                  1,
-                  1
-               ],
-               "text":"Hello World!"
-            }
-         ]
-      },
-      {
-         "type":"Actor",
          "tag":"Enemy",
+         "name":"Bats",
+         "prototype":true,
          "transform":{
             "position":[
                600,
@@ -152,6 +126,7 @@
             {
                "type":"RBPhysicsComponent",
                "data.isDynamic":true,
+               "data.isSensor":false,               
                "data.gravityScale":1,
                "data.density":1,
                "data.size":[
@@ -166,26 +141,143 @@
       },
       {
          "type":"Actor",
+         "name":"tile01",
+         "prototype": true,
          "tag":"Ground",
          "transform":{
-            "position":[
-               400,
-               550
-            ],
-            "rotation":0.0
+            "scale":[
+               2,
+               2
+            ]
          },
          "components":[
             {
                "type":"SpriteComponent",
-               "textureName":"Images/Ground.png"
+               "textureName":"Images/Texture2.png",
+               "rect": [192, 224, 32, 32]
             },
             {
                "type":"RBPhysicsComponent",
                "data.isDynamic":false,
                "data.density":1,
                "data.size":[
-                  800,
-                  20
+                  64,
+                  64
+               ]
+            }
+         ]
+      },{
+         "type":"Actor",
+         "name":"tile04",
+         "tag": "Enemy",
+         "prototype": true,
+         "tag":"Ground",
+         "transform":{
+            "scale":[
+               2,
+               2
+            ]
+         },
+         "components":[
+            {
+               "type":"SpriteComponent",
+               "textureName":"Images/Texture2.png",
+               "rect": [192, 384, 32, 32]
+            },
+            {
+               "type":"RBPhysicsComponent",
+               "data.isDynamic":false,
+               "data.density":1,
+               "data.size":[
+                  64,
+                  64
+               ]
+            }
+         ]
+      },      
+      {
+         "type":"Actor",
+         "name":"tile03",
+         "prototype": true,
+         "tag":"landing",
+         "transform":{
+            "scale":[
+               2,
+               2
+            ]
+         },
+         "components":[
+            {
+               "type":"SpriteComponent",
+               "textureName":"Images/Texture2.png",
+               "rect": [0, 64, 32, 32]
+            },
+            {
+               "type":"RBPhysicsComponent",
+               "data.isDynamic":false,
+               "data.friction": 0.5,
+               "data.restitution":0,
+               "data.density":1,
+               "data.size":[
+                  64,
+                  64
+               ]
+            }
+         ]
+      },{
+         "type":"Actor",
+         "name":"tile05",
+         "prototype": true,
+         "tag":"landing",
+         "transform":{
+            "scale":[
+               2,
+               2
+            ]
+         },
+         "components":[
+            {
+               "type":"SpriteComponent",
+               "textureName":"Images/Texture2.png",
+               "rect": [352, 384, 32, 32]
+            },
+            {
+               "type":"RBPhysicsComponent",
+               "data.isDynamic":false,
+               "data.friction": 2,
+               "data.restitution":0,
+               "data.density":1,
+               "data.size":[
+                  64,
+                  64
+               ]
+            }
+         ]
+      },
+      {
+         "type":"Actor",
+         "name":"tile02",
+         "tag":"landing",
+          "prototype": true,
+         "transform":{
+            "scale":[
+                2,
+                2
+            ]
+         },
+         "components":[
+            {
+               "type":"SpriteComponent",
+               "textureName":"Images/Texture2.png",
+               "rect": [320, 64, 32, 32]
+            },
+            {
+               "type":"RBPhysicsComponent",
+               "data.isDynamic":false,
+               "data.density":1,
+               "data.size":[
+                  64,
+                  64
                ]
             }
          ]
